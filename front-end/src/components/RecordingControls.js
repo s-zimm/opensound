@@ -37,7 +37,7 @@ class RecordingControls extends Component {
         mediaRecorder.onstop = (event) => {
             let blob = new Blob(chunks, { 'type' : 'audio/mp3; codecs=opus' });
             let audioURL = window.URL.createObjectURL(blob);
-            console.log(audioURL)
+            console.log(audioURL);
             this.setState({ audioURL });
         }
         
