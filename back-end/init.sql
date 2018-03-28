@@ -10,7 +10,7 @@ CREATE TABLE sounds (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id),
   title VARCHAR(50),
-  path VARCHAR(200) UNIQUE NOT NULL
+  file_path VARCHAR(200) UNIQUE NOT NULL
 );
 
 CREATE TABLE tracks (
@@ -18,7 +18,7 @@ CREATE TABLE tracks (
   user_id INTEGER NOT NULL REFERENCES users(id),
   sound_id INTEGER NOT NULL REFERENCES sounds(id),
   title VARCHAR(50),
-  path VARCHAR(200) UNIQUE NOT NULL
+  file_path VARCHAR(200) UNIQUE NOT NULL
 );
 
 INSERT INTO users (username, email, first_name, last_name)
