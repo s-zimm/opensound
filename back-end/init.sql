@@ -20,3 +20,9 @@ CREATE TABLE tracks (
   title VARCHAR(50),
   path VARCHAR(200) UNIQUE NOT NULL
 );
+
+INSERT INTO users (username, email, first_name, last_name)
+VALUES ('manuscriptmaster', 'the.manuscriptmaster@gmail.com', 'Joshua', 'Martin');
+
+INSERT INTO users (username, email, first_name, last_name)
+VALUES ('s-zimm', 's.zim517@gmail.com', 'Seth', 'Zimmerman');
