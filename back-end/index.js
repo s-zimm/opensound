@@ -1,22 +1,17 @@
-require('dotenv').config({ path: '../.env'});
-
 const Koa = require('koa');
-const Router = require('koa-router');
+const router = require('./router');
 const fs = require('fs');
 const zlib = require('zlib');
-const pg = require('pg-promise')();
-const db = pg({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER
-});
+const parser = require('koa-body')();
 
-var app = new Koa();
-var router = new Router();
+let app = new Koa();
 
-app.use(async res => {
-  res.body = 'Hello world!';
+app.use(parser);
+
+app.use(router.routes());
+
+app.use(async ctx => {
+  ctx.body = 'Hello world!';
 });
 
 app.listen(3000);
