@@ -47,8 +47,8 @@ class RecordingControls extends Component {
         return (
             <div>
                 {this.state.recording
-                    ? <button className="recordBtnRecording" onClick={this._handleStartRecording}>Record</button>
-                    : <button className="recordBtn" onClick={this._handleStartRecording}>Record</button>}
+                    ? <button className="record-btn-active">Record</button>
+                    : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
                 <button onClick={this._handleStopRecording}>Stop</button>
                 <div>
                     {this.state.audioURL
