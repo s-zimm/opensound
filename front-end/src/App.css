@@ -11,3 +11,11 @@
   background-color: red;
   color: white;
 }
+
+.sound-clip-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
