@@ -8,6 +8,8 @@ let app = new Koa();
 
 app.use(parser);
 
+api.use('/api', api.routes());
+
 app.use(api.routes());
 
 app.use(async ctx => {

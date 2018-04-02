@@ -13,6 +13,7 @@
     "koa": "^2.5.0",
     "koa-body": "^2.5.0",
     "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2",
     "lodash": "^4.17.5",
     "pg-promise": "^8.2.2"
   }

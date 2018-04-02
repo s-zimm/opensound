@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const api = new Router({ prefix: '/api' });
+const api = new Router();
 const datastore = require('./datastore');
 
 api.post('/users', async (ctx, next) => {
