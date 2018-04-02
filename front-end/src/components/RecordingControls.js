@@ -48,7 +48,7 @@ class RecordingControls extends Component {
 
     render() {
         return (
-            <div>
+            <div className="recording-controls-container">
                 {this.state.recording
                     ? <button className="record-btn-active">Record</button>
                     : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
@@ -58,7 +58,7 @@ class RecordingControls extends Component {
                         ? (
                             <RecordedSound
                                 audioBlob={this.state.audioBlob}
-                                currentUser={this.props.currentUser}
+                                currentUser={this.match.params.currentUser}
                                 soundName={this.state.soundName}
                                 audioSrc={this.state.audioSrc}
                             />

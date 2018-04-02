@@ -19,8 +19,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-            <Nav />
-            <Route path="/create-sound" component={RecordingControls}/>
+            <Nav currentUser={this.state.currentUser} />
+            <Route path="/sounds/:userId/new" component={RecordingControls}/>
         </div>
       </Router>
     );
