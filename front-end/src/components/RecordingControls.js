@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RecordedSound from './RecordedSound';
 
 class RecordingControls extends Component {
     constructor(props) {
@@ -6,7 +7,8 @@ class RecordingControls extends Component {
 
         this.state = {
             mediaRecorder: null,
-            recording: false
+            recording: false,
+            audioBlob: null
         }
     }
 
@@ -27,6 +29,7 @@ class RecordingControls extends Component {
 
     _handleStopRecording = () => {
         this.setState({ recording: false });
+        this.setState({ soundName: prompt('Name your sound:')})
         let chunks = [];
         let mediaRecorder = this.state.mediaRecorder;
         mediaRecorder.stop();
@@ -36,9 +39,9 @@ class RecordingControls extends Component {
         }
         mediaRecorder.onstop = (event) => {
             let blob = new Blob(chunks, { 'type' : 'audio/mp3; codecs=opus' });
-            let audioURL = window.URL.createObjectURL(blob);
-            console.log(audioURL);
-            this.setState({ audioURL });
+            let audioSrc = window.URL.createObjectURL(blob);
+            console.log(audioSrc);
+            this.setState({ audioSrc });
         }
         
     }
@@ -50,9 +53,16 @@ class RecordingControls extends Component {
                     ? <button className="record-btn-active">Record</button>
                     : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
                 <button onClick={this._handleStopRecording}>Stop</button>
-                <div>
-                    {this.state.audioURL
-                        ? <audio controls src={this.state.audioURL}></audio>
+                <div className="recording-controls-container">
+                    {this.state.audioSrc && this.state.soundName
+                        ? (
+                            <RecordedSound
+                                audioBlob={this.state.audioBlob}
+                                currentUser={this.props.currentUser}
+                                soundName={this.state.soundName}
+                                audioSrc={this.state.audioSrc}
+                            />
+                        )
                         : null}
                 </div>
             </div>

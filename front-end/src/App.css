@@ -2,6 +2,42 @@
   text-align: center;
 }
 
+.row-container {
+  display: flex;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-brand {
+  width: 30%;
+}
+
+.nav-links {
+  width: 70%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-links li {
+  margin: 0 10px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(167, 167, 167, 0.774);
+  transition: all ease .2s;
+}
+
+.nav-links a:hover {
+  color: rgba(63, 63, 63, 0.774);
+  transition: all ease .2s;
+}
+
 .record-btn {
   transition: all ease .5s;
 }
@@ -10,4 +46,12 @@
   transition: all ease .5s;
   background-color: red;
   color: white;
+}
+
+.sound-clip-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 50%;
 }
