@@ -24,21 +24,52 @@ const datastore = (table, attributes) => {
     let user = pick(obj, attributes);
     let {columns, values} = sequelize(user);
 
-    return db.query(`INSERT INTO users (${columns}) VALUES (${values}) RETURNING *`);
+    return db.query(`
+      INSERT INTO users (${columns})
+      VALUES (${values})
+      RETURNING *
+    `);
   };
 
   let read = (id) => {
-    return db.query(`SELECT * FROM ${table} WHERE id = '${id}'`);
+    return db.query(`
+      SELECT * FROM ${table}
+      WHERE id = '${id}'
+    `);
   };
 
   let readAll = () => {
-    return db.query(`SELECT * FROM ${table}`);
+    return db.query(`
+      SELECT * FROM ${table}
+    `);
+  };
+
+  let update = (id, obj) => {
+    let updates = pick(obj, attributes);
+    let {columns, values} = sequelize(updates);
+
+    return db.query(`
+      UPDATE ${table}
+      SET (${columns}) = (${values})
+      WHERE id = '${id}'
+      RETURNING *
+    `);
+  };
+
+  let del = (id) => {
+    return db.query(`
+      DELETE FROM ${table}
+      WHERE id = '${id}'
+      RETURNING *
+    `);
   };
 
   return {
     create,
     read,
-    readAll
+    readAll,
+    update,
+    del
   }
 }
 

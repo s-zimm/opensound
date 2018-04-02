@@ -24,4 +24,23 @@ router.get('/api/users', async (ctx, next) => {
   ctx.body = await datastore.users.readAll();
 });
 
+router.put('/api/users/:id', async (ctx, next) => {
+  let id = ctx.params.id;
+  let updates = ctx.request.body;
+  ctx.body = await datastore.users.update(id, updates)
+    .catch(err => Promise.resolve(err.detail));
+});
+
+router.del('/api/users/:id', async (ctx, next) => {
+  let id = ctx.params.id;
+  let result = await datastore.users.del(id);
+
+  if (!result.length) {
+    ctx.body = `User ${id} does not exist.`;
+    return;
+  }
+
+  ctx.body = result;
+});
+
 module.exports = router;
