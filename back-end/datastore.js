@@ -27,23 +27,18 @@ const datastore = (table, attributes) => {
     return db.query(`INSERT INTO users (${columns}) VALUES (${values}) RETURNING *`);
   };
 
-  let getAll = () => {
-    return db.query(`SELECT * FROM ${table}`);
+  let read = (id) => {
+    return db.query(`SELECT * FROM ${table} WHERE id = '${id}'`);
   };
 
-  let get = (id) => {
-    return db.query(
-      `
-      SELECT * FROM ${table}
-      WHERE id = '${id}'
-      `
-    );
+  let readAll = () => {
+    return db.query(`SELECT * FROM ${table}`);
   };
 
   return {
     create,
-    getAll,
-    get
+    read,
+    readAll
   }
 }
 
