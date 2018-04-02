@@ -58,7 +58,7 @@ class RecordingControls extends Component {
                         ? (
                             <RecordedSound
                                 audioBlob={this.state.audioBlob}
-                                currentUser={this.match.params.currentUser}
+                                currentUser={this.props.match.params.userId}
                                 soundName={this.state.soundName}
                                 audioSrc={this.state.audioSrc}
                             />
