@@ -12,9 +12,9 @@ router.use('/api', api.routes());
 
 app.use(parser);
 
-app.use(serve('../front-end/build'));
-
 app.use(router.routes());
+
+app.use(serve('../front-end/build'));
 
 app.use(async ctx => {
   ctx.body = '404 nothing here!';
