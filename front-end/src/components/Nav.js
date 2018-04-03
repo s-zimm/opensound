@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Nav = (props) => {
+const Nav = ({ currentUser }) => {
     return (
         <div className="row-container">
             <div className="nav-brand row-container">
@@ -11,7 +11,7 @@ const Nav = (props) => {
                 <ul className="row-container">
                     <li>Home</li>
                     <li>My Sounds</li>
-                    <li><Link to="/create-sound">Create Sound</Link></li>
+                    <li><Link to={`/sounds/${currentUser}/new`}>Create Sound</Link></li>
                 </ul>
             </div>
         </div>

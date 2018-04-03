@@ -16,7 +16,7 @@ class RecordedSound extends Component {
     render() {
         return (
             <div className="sound-clip-container">
-                <h5>{this.props.soundName}</h5>
+                <h5 style={{ margin: 0 }}>{this.props.soundName}</h5>
                 <audio controls src={this.props.audioSrc}></audio>
                 <button onClick={this._saveSound}>Save</button>
             </div>
