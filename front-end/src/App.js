@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
@@ -19,8 +19,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-            <Nav />
-            <Route path="/create-sound" component={RecordingControls}/>
+            <Nav currentUser={this.state.currentUser} />
+            <Route path="/sounds/:userId/new" component={RecordingControls}/>
         </div>
       </Router>
     );
