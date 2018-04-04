@@ -3,7 +3,7 @@ const soundRouter = new Router();
 const sounds = require('./datastore').sounds;
 
 soundRouter.post('/', async (ctx, next) => {
-  let { user_id:userId, title, file } = ctx.request.body;
+  let { user_id: userId, title, file } = ctx.request.body;
 
   ctx.body = `User ${user_id} posted a new sound called '${title}'.`;
 });
