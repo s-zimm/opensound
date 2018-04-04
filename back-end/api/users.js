@@ -1,16 +1,16 @@
 const Router = require('koa-router');
-const api = new Router();
-const datastore = require('./datastore');
+const userRouter = new Router();
+const users = require('./datastore').users;
 
-api.post('/users', async (ctx, next) => {
+userRouter.post('/', async (ctx, next) => {
   let obj = ctx.request.body;
-  ctx.body = await datastore.users.create(obj)
+  ctx.body = await users.create(obj)
     .catch(err => Promise.resolve(err.detail));
 });
 
-api.get('/users/:id', async (ctx, next) => {
+userRouter.get('/:id', async (ctx, next) => {
   let id = ctx.params.id;
-  let result = await datastore.users.read(id);
+  let result = await users.read(id);
 
   if (!result.length) {
     ctx.body = `User ${id} does not exist.`;
@@ -20,14 +20,14 @@ api.get('/users/:id', async (ctx, next) => {
   ctx.body = result;
 });
 
-api.get('/users', async (ctx, next) => {
-  ctx.body = await datastore.users.readAll();
+userRouter.get('/', async (ctx, next) => {
+  ctx.body = await users.readAll();
 });
 
-api.put('/users/:id', async (ctx, next) => {
+userRouter.put('/:id', async (ctx, next) => {
   let id = ctx.params.id;
   let updates = ctx.request.body;
-  var result = await datastore.users.update(id, updates);
+  var result = await users.update(id, updates);
 
   if (!result.length) {
     ctx.body = `User ${id} does not exist.`;
@@ -37,9 +37,9 @@ api.put('/users/:id', async (ctx, next) => {
   ctx.body = result;
 });
 
-api.del('/users/:id', async (ctx, next) => {
+userRouter.del('/:id', async (ctx, next) => {
   let id = ctx.params.id;
-  let result = await datastore.users.del(id);
+  let result = await users.del(id);
 
   if (!result.length) {
     ctx.body = `User ${id} does not exist.`;
@@ -49,4 +49,4 @@ api.del('/users/:id', async (ctx, next) => {
   ctx.body = result;
 });
 
-module.exports = api;
+module.exports = userRouter;
