@@ -4,13 +4,25 @@ const serve = require('koa-static');
 const api = require('./api');
 const fs = require('fs');
 const zlib = require('zlib');
-const parser = require('koa-body')();
+const convert = require('koa-convert');
+const parser = require('koa-better-body');
+const formidable = require('formidable');
 
 let app = new Koa();
 let router = new Router();
+
 router.use('/api', api.routes());
 
-app.use(parser);
+var form = new formidable.IncomingForm({
+  uploadDir: '../library',
+  keepExtensions: true
+});
+
+app.use(convert(parser({
+  multipart: true,
+  fields: 'body',
+  IncomingForm: form
+})));
 
 app.use(router.routes());
 
