@@ -6,10 +6,12 @@ class RecordedSound extends Component {
     _saveSound = () => {
         axios.post('POSTURLFORSOUND', {
             userId: this.props.currentUser,
-            audioBlob: this.props.audioBlob
+            audioBlob: this.props.audioBlob,
+            title: this.props.soundName
         })
             .then(data => {
-                console.log('we posted')
+                console.log('we posted');
+                console.log(data);
             });
     }
 
