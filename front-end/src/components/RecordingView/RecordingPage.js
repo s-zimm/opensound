@@ -21,6 +21,10 @@ class RecordingPage extends Component {
             })
     }
 
+    componentWillUnmount() {
+        this.setState({ mediaRecorder: null })
+    }
+
     _handleStartRecording = () => {
         this.state.mediaRecorder.start();
         this.setState({ recording: true });

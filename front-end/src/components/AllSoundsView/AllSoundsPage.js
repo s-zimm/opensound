@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import SingleSound from './SingleSound';
 
@@ -9,6 +10,13 @@ class AllSoundsPage extends Component {
         this.state = {
             
         }
+    }
+
+    componentDidMount() {
+        axios.get('/api/sounds')
+            .then(data => {
+                console.log(data);
+            })
     }
 
     render() {
