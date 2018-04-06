@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.js"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "koa": "^2.5.0",
     "koa-better-body": "^3.0.4",
     "koa-convert": "^1.2.0",
+    "koa-mount": "^3.0.0",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
     "lodash": "^4.17.5",

@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentUser: 1
+      currentUser: 3
     }
   }
 
