@@ -69,15 +69,16 @@
   height: 250px;
   width: 210px;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 .single-sound-container .info {
-  height: 75%;
+  height: 88%;
   border-bottom: solid 1px black;
 }
 
 .single-sound-container .audio {
-  height: 25%;
+  height: 13%;
   align-items: center;
   justify-content: space-around;
 }

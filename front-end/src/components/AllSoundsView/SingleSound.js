@@ -11,10 +11,13 @@ class SingleSound extends Component {
                     <p>Date Created</p>
 
                 </div>
-                <div className="audio row-container">
+                {/* <div className="audio row-container">
                     <div className="play-btn">{'>'}</div>
                     <audio src=""></audio>
                     <progress value={0} max={1}></progress>
+                </div> */}
+                <div className="audio row-container">
+                    <audio controls src=""></audio>
                 </div>
             </div>
         )
