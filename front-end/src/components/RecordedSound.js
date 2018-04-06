@@ -4,7 +4,7 @@ import axios from 'axios';
 class RecordedSound extends Component {
 
     _saveSound = () => {
-        axios.post('POSTURLFORSOUND', {
+        axios.post('/api/sounds', {
             userId: this.props.currentUser,
             audioBlob: this.props.audioBlob,
             title: this.props.soundName

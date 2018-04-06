@@ -25,7 +25,7 @@ const datastore = (table, attributes) => {
     let {columns, values} = sequelize(user);
 
     return db.query(`
-      INSERT INTO users (${columns})
+      INSERT INTO ${table} (${columns})
       VALUES (${values})
       RETURNING *
     `);

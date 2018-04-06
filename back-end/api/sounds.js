@@ -3,9 +3,10 @@ const soundRouter = new Router();
 const sounds = require('./datastore').sounds;
 
 soundRouter.post('/', async (ctx, next) => {
-  let { user_id: userId, title, file } = ctx.request.body;
+  let { userId:user_id, title, audioBlob:file_path } = ctx.request.body;
+  let result = await sounds.create({ user_id, title, file_path });
 
-  ctx.body = `User ${user_id} posted a new sound called '${title}'.`;
+  ctx.body = result;
 });
 
 soundRouter.get('/:id', async (ctx, next) => {
