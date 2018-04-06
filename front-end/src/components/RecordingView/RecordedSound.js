@@ -10,7 +10,8 @@ class RecordedSound extends Component {
             title: this.props.soundName
         })
         .then(data => {
-            console.log('we posted')
+            console.log('we posted');
+            console.log(data);
         });
     }
 
