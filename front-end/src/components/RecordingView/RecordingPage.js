@@ -45,6 +45,7 @@ class RecordingPage extends Component {
             let blob = new Blob(chunks, { 'type' : 'audio/mp3; codecs=opus' });
             let audioSrc = window.URL.createObjectURL(blob);
             console.log(audioSrc);
+            this.setState({ audioBlob: blob });
             this.setState({ audioSrc });
         }
         
