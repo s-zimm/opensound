@@ -10,7 +10,7 @@ const Nav = ({ currentUser }) => {
             <div className="nav-links row-container">
                 <ul className="row-container">
                     <li>Home</li>
-                    <li>My Sounds</li>
+                    <li><Link to={`/sounds/${currentUser}`}>My Sounds</Link></li>
                     <li><Link to={`/sounds/${currentUser}/new`}>Create Sound</Link></li>
                 </ul>
             </div>

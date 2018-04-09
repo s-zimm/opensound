@@ -9,10 +9,10 @@ class RecordedSound extends Component {
             audioBlob: this.props.audioBlob,
             title: this.props.soundName
         })
-            .then(data => {
-                console.log('we posted');
-                console.log(data);
-            });
+        .then(data => {
+            console.log('we posted');
+            console.log(data);
+        });
     }
 
     render() {

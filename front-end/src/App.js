@@ -4,7 +4,8 @@ import logo from './logo.svg';
 import './App.css';
 
 import Nav from './components/Nav';
-import RecordingControls from './components/RecordingControls';
+import RecordingPage from './components/RecordingView/RecordingPage';
+import AllSoundsPage from './components/AllSoundsView/AllSoundsPage';
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class App extends Component {
       <Router>
         <div className="App">
             <Nav currentUser={this.state.currentUser} />
-            <Route path="/sounds/:userId/new" component={RecordingControls}/>
+            <Route exact path="/sounds/:userId" component={AllSoundsPage}/>
+            <Route path="/sounds/:userId/new" component={RecordingPage}/>
         </div>
       </Router>
     );

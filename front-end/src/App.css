@@ -1,3 +1,4 @@
+/* GENERAL APP CSS */
 .App {
   text-align: center;
 }
@@ -10,6 +11,8 @@
   display: flex;
   flex-direction: column;
 }
+
+/* NAV */
 
 .nav-brand {
   width: 30%;
@@ -38,6 +41,8 @@
   transition: all ease .2s;
 }
 
+/* SOUND RECORDING VIEW */
+
 .recording-controls-container {
   flex-basis: 100%;
   align-items: center;
@@ -62,4 +67,122 @@
   width: 50%;
   height: 145px;
   border: solid black 1px;
+}
+
+/* ALL SOUNDS VIEW */
+
+.single-sound-container {
+  border: solid 1px black;
+  height: 250px;
+  width: 210px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.single-sound-container .info {
+  height: 88%;
+  border-bottom: solid 1px black;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.single-sound-container .info > * {
+  margin: 0;
+}
+
+.single-sound-container .audio {
+  height: 13%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.single-sound-container audio {
+  max-width: 100%;
+}
+
+/* .single-sound-container progress {
+  -webkit-appearance: none;
+  width: 70%;
+  height: 5px;
+  border: solid 1px gray;
+
+}
+::-webkit-progress-bar {
+  background-color: white;
+} */
+
+.play-btn {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid #c9c9c9 .5px;
+  transition: all ease .2s;
+  color: #c9c9c9;
+}
+
+.play-btn:hover {
+  transition: all ease .2s;
+  box-shadow: 0 1px 1px gray;
+  color: #4e4e4e;
+}
+
+.star-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid rgb(126, 126, 126) 1px;
+  font-size: 25px;
+  width: 13%;
+  padding: 15px;
+  border-radius: 50%;
+  color: rgba(247, 247, 3, 0.582);
+  background-color: #aaaaaa;
+  transition: all ease .3s;
+}
+
+.star-button:hover {
+  /* animation: star-spin .6s; */
+  transition: all ease .3s;
+  background-color: #525252;
+  color: rgb(247, 247, 3);
+  box-shadow: 2px 2px 10px #eeeb2e, -2px -2px 10px #eeeb2e;
+}
+
+.stars-and-movements {
+  width: 100%;
+  justify-content: space-around;
+}
+
+.stars-container {
+  border: solid gray 1px;
+  border-radius: 6px;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  transition: all ease .3s;
+}
+
+.stars-container:hover {
+  box-shadow: 2px 2px 10px #666b86, -1px -1px 10px #666b86;
+  transition: all ease .3s;
+}
+
+.stars-container p {
+  margin: 0;
+  margin-left: 5px;
+}
+
+@keyframes star-spin {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }

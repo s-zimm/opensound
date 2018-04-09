@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RecordedSound from './RecordedSound';
 
-class RecordingControls extends Component {
+class RecordingPage extends Component {
     constructor(props) {
         super(props);
 
@@ -19,6 +19,10 @@ class RecordingControls extends Component {
                 let mediaRecorder = new MediaRecorder(stream);
                 this.setState({ mediaRecorder });
             })
+    }
+
+    componentWillUnmount() {
+        this.setState({ mediaRecorder: null })
     }
 
     _handleStartRecording = () => {
@@ -70,4 +74,4 @@ class RecordingControls extends Component {
     }
 }
 
-export default RecordingControls;
+export default RecordingPage;
