@@ -4,7 +4,6 @@ import axios from 'axios';
 class RecordedSound extends Component {
 
     _saveSound = () => {
-        // this.props.handleSoundSave();
         let config = { headers: {'Content-Type': 'multipart/form-data' } }
 
         let data = new FormData();
@@ -25,7 +24,7 @@ class RecordedSound extends Component {
 
     render() {
         return (
-            <div onClick={() => this.props.handleSoundClick(this.props.index)} className="sound-clip-container">
+            <div className="sound-clip-container">
                 <h5 style={{ margin: 0 }}>{this.props.soundName}</h5>
                 <audio controls src={this.props.audioSrc}></audio>
                 <button onClick={this._saveSound}>Save</button>

@@ -9,8 +9,7 @@ class RecordingPage extends Component {
             mediaRecorder: null,
             recording: false,
             audioBlob: null,
-            recordings: [],
-            recordingIndex: null
+            recordings: []
         }
     }
 
@@ -78,7 +77,6 @@ class RecordingPage extends Component {
                     soundName={recording.soundName}
                     audioSrc={recording.audioSrc}
                     index={i}
-                    handleSoundClick={(i) => this.setState({ recordingIndex: i })}
                     handleDelete={this._handleSoundDelete}
                 />
                 )
