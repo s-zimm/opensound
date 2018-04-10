@@ -1,12 +1,11 @@
-require('dotenv').config({ path: '../.env'});
-
 const { pick } = require('lodash');
 const pg = require('pg-promise')();
+const { DB_HOST, DB_PORT, DB_NAME, DB_USER } = process.env;
 const db = pg({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER
+  host: DB_HOST,
+  port: DB_PORT,
+  database: DB_NAME,
+  user: DB_USER
 });
 
 let sequelize = (obj) => {
