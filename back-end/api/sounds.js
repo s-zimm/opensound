@@ -36,8 +36,6 @@ soundRouter.del('/:id', async (ctx, next) => {
 
   let { file_path } = result;
 
-  console.log(`${UPLOAD_DIR}/${file_path}`);
-
   await unlink(`${UPLOAD_DIR}/${file_path}`);
 
   ctx.body = result;
