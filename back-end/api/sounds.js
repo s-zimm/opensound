@@ -1,6 +1,10 @@
 const Router = require('koa-router');
 const soundRouter = new Router();
 const sounds = require('./datastore').sounds;
+const fs = require('fs');
+const promisify = require('util').promisify;
+const unlink = promisify(fs.unlink);
+const { UPLOAD_DIR } = process.env;
 
 soundRouter.post('/', async (ctx, next) => {
   let { userId:user_id, title, audioBlob:file_path } = ctx.request.body;
@@ -29,6 +33,12 @@ soundRouter.del('/:id', async (ctx, next) => {
     ctx.body = `Sound ${id} does not exist.`;
     return;
   }
+
+  let { file_path } = result;
+
+  console.log(`${UPLOAD_DIR}/${file_path}`);
+
+  await unlink(`${UPLOAD_DIR}/${file_path}`);
 
   ctx.body = result;
 });
