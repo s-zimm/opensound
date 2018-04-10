@@ -8,7 +8,8 @@ class RecordingPage extends Component {
         this.state = {
             mediaRecorder: null,
             recording: false,
-            audioBlob: null
+            audioBlob: null,
+            recordings: []
         }
     }
 
@@ -33,21 +34,53 @@ class RecordingPage extends Component {
 
     _handleStopRecording = () => {
         this.setState({ recording: false });
-        this.setState({ soundName: prompt('Name your sound:')})
         let chunks = [];
         let mediaRecorder = this.state.mediaRecorder;
-        mediaRecorder.stop();
-        console.log(this.state.mediaRecorder.state)
         mediaRecorder.ondataavailable = event => {
             chunks.push(event.data);
         }
         mediaRecorder.onstop = (event) => {
             let blob = new Blob(chunks, { 'type' : 'audio/mp3; codecs=opus' });
             let audioSrc = window.URL.createObjectURL(blob);
-            console.log(audioSrc);
-            this.setState({ audioSrc });
+            console.log(blob);
+            // this.setState({ audioBlob: blob }, () => console.log(this.state.audioBlob));
+            // this.setState({ audioSrc }, () => console.log(this.state.audioSrc));
+            this.setState({ recordings: [
+                ...this.state.recordings,
+                    { 
+                        soundName: prompt('Name your sound:'),
+                        audioBlob: blob,
+                        audioSrc
+                    }
+                ]
+            });
         }
+        mediaRecorder.stop();
+        console.log(this.state.mediaRecorder.state)
         
+    }
+
+    _handleSoundDelete = (index) => {
+        let newRecordings = this.state.recordings.filter(rec => rec !== this.state.recordings[index]);
+        this.setState({
+            recordings: newRecordings
+        });
+    }
+
+    _handleRenderRecordings = () => {
+        return this.state.recordings.map((recording, i) => {
+            return (
+                <RecordedSound
+                    key={i}
+                    audioBlob={recording.audioBlob}
+                    currentUser={this.props.match.params.userId}
+                    soundName={recording.soundName}
+                    audioSrc={recording.audioSrc}
+                    index={i}
+                    handleDelete={this._handleSoundDelete}
+                />
+                )
+        })
     }
 
     render() {
@@ -58,16 +91,7 @@ class RecordingPage extends Component {
                     : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
                 <button onClick={this._handleStopRecording}>Stop</button>
                 <div className="recording-controls-container">
-                    {this.state.audioSrc && this.state.soundName
-                        ? (
-                            <RecordedSound
-                                audioBlob={this.state.audioBlob}
-                                currentUser={this.props.match.params.userId}
-                                soundName={this.state.soundName}
-                                audioSrc={this.state.audioSrc}
-                            />
-                        )
-                        : null}
+                    {this._handleRenderRecordings()}    
                 </div>
             </div>
         )
