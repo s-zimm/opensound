@@ -7,7 +7,9 @@ class AudioControls extends Component {
 
         this.state = {
             playStatus: Sound.status.PAUSED,
-            playing: false
+            playing: false,
+            loop: false,
+            position: 0
         }
     }
 
@@ -27,11 +29,19 @@ class AudioControls extends Component {
                         ? <i className="fas fa-pause"></i>
                         : <i className="fas fa-play"></i>}
                 </div>
+                <div className="duration">
+                    
+                </div>
+                <button className={`loop loop-${this.state.loop}`} onClick={() => this.setState({ loop: !this.state.loop })}>
+                    Loop
+                </button>
                 <Sound 
                     url={this.props.url}
                     playStatus={this.state.playStatus}
-                    loop={false}
+                    loop={this.state.loop}
                     onFinishedPlaying={() => this.setState({ playStatus: Sound.status.STOPPED, playing: false })}
+                    onPlaying={(position, duration) => console.log(position, duration)}
+                    position={this.state.position}
                 />
             </div>
         )

@@ -99,6 +99,28 @@
   color: #4e4e4e;
 }
 
+.duration {
+  width: 70%;
+  height: 3px;
+  border: solid black 1px;
+}
+
+.loop:focus {
+  outline: none;
+}
+
+.loop-true {
+  background-color: rgb(85, 85, 201);
+  color: white;
+  transition: all ease .2s;
+}
+
+.loop-false {
+  background-color: white;
+  color: rgb(121, 130, 184);
+  transition: all ease .2s;
+}
+
 /* ALL SOUNDS VIEW */
 
 .single-sound-container {
