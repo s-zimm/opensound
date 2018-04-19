@@ -101,8 +101,6 @@
 
 .duration {
   width: 70%;
-  height: 3px;
-  border: solid black 1px;
 }
 
 .loop:focus {

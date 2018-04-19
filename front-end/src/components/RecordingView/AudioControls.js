@@ -9,7 +9,8 @@ class AudioControls extends Component {
             playStatus: Sound.status.PAUSED,
             playing: false,
             loop: false,
-            position: 0
+            position: 0,
+            duration: 0
         }
     }
 
@@ -29,9 +30,7 @@ class AudioControls extends Component {
                         ? <i className="fas fa-pause"></i>
                         : <i className="fas fa-play"></i>}
                 </div>
-                <div className="duration">
-                    
-                </div>
+                <progress className="duration" min={0} max={this.state.duration} value={this.state.position}/>
                 <button className={`loop loop-${this.state.loop}`} onClick={() => this.setState({ loop: !this.state.loop })}>
                     Loop
                 </button>
@@ -40,8 +39,11 @@ class AudioControls extends Component {
                     playStatus={this.state.playStatus}
                     loop={this.state.loop}
                     onFinishedPlaying={() => this.setState({ playStatus: Sound.status.STOPPED, playing: false })}
-                    onPlaying={(position, duration) => console.log(position, duration)}
+                    onPlaying={({ position }) => this.setState({ position }, () => console.log(this.state.position))}
+                    onStop={() => this.setState({ position: 0 })}
                     position={this.state.position}
+                    autoLoad={true}
+                    onLoading={({ duration }) => this.setState({ duration }, () => console.log(this.state.duration))}
                 />
             </div>
         )
