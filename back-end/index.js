@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../.env'});
+
 const Koa = require('koa');
 const Router = require('koa-router');
 const mount = require('koa-mount');
@@ -7,6 +9,7 @@ const fs = require('fs');
 const convert = require('koa-convert');
 const parser = require('koa-better-body');
 const formidable = require('formidable');
+const { UPLOAD_DIR } = process.env;
 
 let app = new Koa();
 let router = new Router();
@@ -14,7 +17,7 @@ let router = new Router();
 router.use('/api', api.routes());
 
 var form = new formidable.IncomingForm({
-  uploadDir: '../library',
+  uploadDir: UPLOAD_DIR,
   keepExtensions: true
 });
 
