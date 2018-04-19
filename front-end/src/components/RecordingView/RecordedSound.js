@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Sound from 'react-sound';
+import AudioControls from './AudioControls';
 
 class RecordedSound extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            
+        }
+    }
 
     _saveSound = () => {
         let config = { headers: {'Content-Type': 'multipart/form-data' } }
@@ -24,12 +33,17 @@ class RecordedSound extends Component {
 
     render() {
         return (
-            <div className="sound-clip-container">
-                <h5 style={{ margin: 0 }}>{this.props.soundName}</h5>
-                <audio controls src={this.props.audioSrc}></audio>
-                <button onClick={this._saveSound}>Save</button>
-                <button onClick={this._deleteSound}>Delete</button>
-            </div>
+            <React.Fragment>
+                <div className="sound-clip-container">
+                    <h5 style={{ margin: 0 }}>{this.props.soundName}</h5>
+                    {/* <audio controls src={this.props.audioSrc}></audio> */}
+                    <AudioControls 
+                        url={this.props.audioSrc}
+                    />
+                    <button onClick={this._saveSound}>Save</button>
+                    <button onClick={this._deleteSound}>Delete</button>
+                </div>
+            </React.Fragment>
         )
     }
 }
