@@ -13,9 +13,9 @@ class AudioControls extends Component {
 
     _handlePlayBtn = () => {
         if (this.state.playStatus === Sound.status.PAUSED) {
-            this.setState({ playStatus: Sound.status.PLAYING });
+            this.setState({ playing: true, playStatus: Sound.status.PLAYING });
         } else {
-            this.setState({ playStatus: Sound.status.PAUSED });
+            this.setState({ playing: false, playStatus: Sound.status.PAUSED });
         }
     }
 
@@ -23,12 +23,15 @@ class AudioControls extends Component {
         return (
             <div className="audio-controls">
                 <div className="play-btn" onClick={this._handlePlayBtn}>
-                    <i className="fas fa-play"></i>
+                    {this.state.playing
+                        ? <i className="fas fa-pause"></i>
+                        : <i className="fas fa-play"></i>}
                 </div>
                 <Sound 
                     url={this.props.url}
                     playStatus={this.state.playStatus}
                     loop={false}
+                    onFinishedPlaying={() => this.setState({ playStatus: Sound.status.STOPPED, playing: false })}
                 />
             </div>
         )
