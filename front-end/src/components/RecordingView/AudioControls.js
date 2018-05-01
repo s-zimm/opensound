@@ -42,7 +42,6 @@ class AudioControls extends Component {
                     onPlaying={({ position }) => this.setState({ position }, () => console.log(this.state.position))}
                     onStop={() => this.setState({ position: 0 })}
                     position={this.state.position}
-                    autoLoad={true}
                     onLoading={({ duration }) => this.setState({ duration }, () => console.log(this.state.duration))}
                 />
             </div>

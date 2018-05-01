@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RecordedSound from './RecordedSound';
+import Metronome from '../Metronome/Metronome';
 
 class RecordingPage extends Component {
     constructor(props) {
@@ -43,8 +44,6 @@ class RecordingPage extends Component {
             let blob = new Blob(chunks, { 'type' : 'audio/mp3; codecs=opus' });
             let audioSrc = window.URL.createObjectURL(blob);
             console.log(blob);
-            // this.setState({ audioBlob: blob }, () => console.log(this.state.audioBlob));
-            // this.setState({ audioSrc }, () => console.log(this.state.audioSrc));
             this.setState({ recordings: [
                 ...this.state.recordings,
                     { 
@@ -87,9 +86,9 @@ class RecordingPage extends Component {
         return (
             <div className="recording-controls-container">
                 {this.state.recording
-                    ? <button className="record-btn-active">Record</button>
+                    ? <button onClick={this._handleStopRecording} className="record-btn-active">Stop</button>
                     : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
-                <button onClick={this._handleStopRecording}>Stop</button>
+                <Metronome />
                 <div className="recording-controls-container">
                     {this._handleRenderRecordings()}    
                 </div>
