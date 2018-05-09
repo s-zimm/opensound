@@ -22,6 +22,8 @@ class AudioControls extends Component {
         }
     }
 
+    
+
     render() {
         return (
             <div className="audio-controls">

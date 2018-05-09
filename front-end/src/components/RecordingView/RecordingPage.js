@@ -10,7 +10,8 @@ class RecordingPage extends Component {
             mediaRecorder: null,
             recording: false,
             audioBlob: null,
-            recordings: []
+            recordings: [],
+            countIn: 3
         }
     }
 
@@ -28,6 +29,7 @@ class RecordingPage extends Component {
     }
 
     _handleStartRecording = () => {
+        this._countIn()
         this.state.mediaRecorder.start();
         this.setState({ recording: true });
         console.log(this.state.mediaRecorder.state)
@@ -82,9 +84,22 @@ class RecordingPage extends Component {
         })
     }
 
+    _countIn = () => {
+        setInterval(() => {
+            if (this.state.countIn > 0) {
+                this.setState({ countIn: this.state.countIn - 1 })
+            } else {
+                clearInterval()
+            }
+            
+        }, 1000)
+        
+    }
+
     render() {
         return (
             <div className="recording-controls-container">
+                <p>{this.state.countIn}</p>
                 {this.state.recording
                     ? <button onClick={this._handleStopRecording} className="record-btn-active">Stop</button>
                     : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
