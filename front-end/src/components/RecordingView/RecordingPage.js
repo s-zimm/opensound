@@ -11,7 +11,7 @@ class RecordingPage extends Component {
             recording: false,
             audioBlob: null,
             recordings: [],
-            countIn: 3
+            countIn: null
         }
     }
 
@@ -36,7 +36,7 @@ class RecordingPage extends Component {
     }
 
     _handleStopRecording = () => {
-        this.setState({ recording: false });
+        this.setState({ recording: false, countIn: null });
         let chunks = [];
         let mediaRecorder = this.state.mediaRecorder;
         mediaRecorder.ondataavailable = event => {
@@ -86,24 +86,27 @@ class RecordingPage extends Component {
 
     _countIn = () => {
         return new Promise(resolve => {
-            setInterval(() => {
-                if (this.state.countIn > 1) {
-                    this.setState({ countIn: this.state.countIn - 1 })
-                } else {
-                    resolve(clearInterval());
-                }
-            }, 1000)
-        }) 
+            this.setState({ countIn: 3 }, () => {
+                setInterval(() => {
+                    if (this.state.countIn > 1) {
+                        this.setState({ countIn: this.state.countIn - 1 })
+                    } else {
+                        resolve(clearInterval());
+                    }
+                }, 1000)
+            })
+        })
         
     }
 
     render() {
         return (
             <div className="recording-controls-container">
-                <p>{this.state.countIn}</p>
                 {this.state.recording
                     ? <button onClick={this._handleStopRecording} className="record-btn-active">Stop</button>
-                    : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
+                    : this.state.countIn
+                        ? <button className="record-btn" onClick={this._handleStartRecording}>{this.state.countIn}</button>
+                        : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
                 <Metronome />
                 <div className="recording-controls-container">
                     {this._handleRenderRecordings()}    
