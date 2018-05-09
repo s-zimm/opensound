@@ -49,7 +49,6 @@ class Metronome extends Component {
                 playing: true
             }, this.playClick)
         }
-        this.click1.play();
     }
 
     render() {
