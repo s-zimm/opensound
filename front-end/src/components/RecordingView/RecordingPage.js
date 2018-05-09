@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RecordedSound from './RecordedSound';
 import Metronome from '../Metronome/Metronome';
+import { connect } from 'react-redux';
 
 class RecordingPage extends Component {
     constructor(props) {
@@ -11,8 +12,7 @@ class RecordingPage extends Component {
             recording: false,
             audioBlob: null,
             recordings: [],
-            countIn: null,
-            bpm: 100
+            countIn: null
         }
     }
 
@@ -88,15 +88,15 @@ class RecordingPage extends Component {
     _countIn = () => {
         return new Promise(resolve => {
             this.setState({ countIn: 4 }, () => {
-                setInterval(() => {
+                  let interval = setInterval(() => {
                     if (this.state.countIn > 1) {
                         this.setState({ countIn: this.state.countIn - 1 })
                     } else {
-                        resolve(clearInterval());
+                        resolve(clearInterval(interval));
                     }
-                }, (60 / this.state.bpm) * 1000)
+                }, (60 / this.props.bpm) * 1000);
             })
-        })
+        });
         
     }
 
@@ -108,9 +108,7 @@ class RecordingPage extends Component {
                     : this.state.countIn
                         ? <button className="record-btn" onClick={this._handleStartRecording}>{this.state.countIn}</button>
                         : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
-                <Metronome 
-                    handleBpmChange={(bpm) => this.setState({ bpm })}
-                />
+                <Metronome />
                 <div className="recording-controls-container">
                     {this._handleRenderRecordings()}    
                 </div>
@@ -119,4 +117,8 @@ class RecordingPage extends Component {
     }
 }
 
-export default RecordingPage;
+const mapStateToProps = state => ({
+    bpm: state.recordingControls.bpm
+})
+
+export default connect(mapStateToProps)(RecordingPage);

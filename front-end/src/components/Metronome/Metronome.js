@@ -43,7 +43,7 @@ class Metronome extends Component {
             clearInterval(this.timer);
             this.setState({ playing: false });
         } else {
-            this.timer = setInterval(this.playClick, (60 / this.state.bpm) * 1000)
+            this.timer = setInterval(this.playClick, (60 / this.props.bpm) * 1000)
             this.setState({
                 count: 0,
                 playing: true
