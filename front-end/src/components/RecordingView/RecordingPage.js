@@ -11,7 +11,8 @@ class RecordingPage extends Component {
             recording: false,
             audioBlob: null,
             recordings: [],
-            countIn: null
+            countIn: null,
+            bpm: 100
         }
     }
 
@@ -86,14 +87,14 @@ class RecordingPage extends Component {
 
     _countIn = () => {
         return new Promise(resolve => {
-            this.setState({ countIn: 3 }, () => {
+            this.setState({ countIn: 4 }, () => {
                 setInterval(() => {
                     if (this.state.countIn > 1) {
                         this.setState({ countIn: this.state.countIn - 1 })
                     } else {
                         resolve(clearInterval());
                     }
-                }, 1000)
+                }, (60 / this.state.bpm) * 1000)
             })
         })
         
@@ -107,7 +108,9 @@ class RecordingPage extends Component {
                     : this.state.countIn
                         ? <button className="record-btn" onClick={this._handleStartRecording}>{this.state.countIn}</button>
                         : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
-                <Metronome />
+                <Metronome 
+                    handleBpmChange={(bpm) => this.setState({ bpm })}
+                />
                 <div className="recording-controls-container">
                     {this._handleRenderRecordings()}    
                 </div>

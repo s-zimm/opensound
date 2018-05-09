@@ -20,6 +20,7 @@ class Metronome extends Component {
     handleBpmChange = (event) => {
         const bpm = event.target.value;
         this.setState({ bpm });
+        this.props.handleBpmChange(bpm)
     }
 
     playClick = () => {
