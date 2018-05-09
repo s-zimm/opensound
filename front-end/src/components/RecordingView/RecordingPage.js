@@ -28,8 +28,8 @@ class RecordingPage extends Component {
         this.setState({ mediaRecorder: null })
     }
 
-    _handleStartRecording = () => {
-        this._countIn()
+    _handleStartRecording = async () => {
+        await this._countIn()
         this.state.mediaRecorder.start();
         this.setState({ recording: true });
         console.log(this.state.mediaRecorder.state)
@@ -85,14 +85,15 @@ class RecordingPage extends Component {
     }
 
     _countIn = () => {
-        setInterval(() => {
-            if (this.state.countIn > 0) {
-                this.setState({ countIn: this.state.countIn - 1 })
-            } else {
-                clearInterval()
-            }
-            
-        }, 1000)
+        return new Promise(resolve => {
+            setInterval(() => {
+                if (this.state.countIn > 1) {
+                    this.setState({ countIn: this.state.countIn - 1 })
+                } else {
+                    resolve(clearInterval());
+                }
+            }, 1000)
+        }) 
         
     }
 
