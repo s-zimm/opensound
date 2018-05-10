@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RecordedSound from './RecordedSound';
 import Metronome from '../Metronome/Metronome';
+import { connect } from 'react-redux';
 
 class RecordingPage extends Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class RecordingPage extends Component {
             mediaRecorder: null,
             recording: false,
             audioBlob: null,
-            recordings: []
+            recordings: [],
+            countIn: null
         }
     }
 
@@ -27,14 +29,15 @@ class RecordingPage extends Component {
         this.setState({ mediaRecorder: null })
     }
 
-    _handleStartRecording = () => {
+    _handleStartRecording = async () => {
+        await this._countIn()
         this.state.mediaRecorder.start();
         this.setState({ recording: true });
         console.log(this.state.mediaRecorder.state)
     }
 
     _handleStopRecording = () => {
-        this.setState({ recording: false });
+        this.setState({ recording: false, countIn: null });
         let chunks = [];
         let mediaRecorder = this.state.mediaRecorder;
         mediaRecorder.ondataavailable = event => {
@@ -82,12 +85,29 @@ class RecordingPage extends Component {
         })
     }
 
+    _countIn = () => {
+        return new Promise(resolve => {
+            this.setState({ countIn: 4 }, () => {
+                  let interval = setInterval(() => {
+                    if (this.state.countIn > 1) {
+                        this.setState({ countIn: this.state.countIn - 1 })
+                    } else {
+                        resolve(clearInterval(interval));
+                    }
+                }, (60 / this.props.bpm) * 1000);
+            })
+        });
+        
+    }
+
     render() {
         return (
             <div className="recording-controls-container">
                 {this.state.recording
                     ? <button onClick={this._handleStopRecording} className="record-btn-active">Stop</button>
-                    : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
+                    : this.state.countIn
+                        ? <button className="record-btn" onClick={this._handleStartRecording}>{this.state.countIn}</button>
+                        : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
                 <Metronome />
                 <div className="recording-controls-container">
                     {this._handleRenderRecordings()}    
@@ -97,4 +117,8 @@ class RecordingPage extends Component {
     }
 }
 
-export default RecordingPage;
+const mapStateToProps = state => ({
+    bpm: state.recordingControls.bpm
+})
+
+export default connect(mapStateToProps)(RecordingPage);

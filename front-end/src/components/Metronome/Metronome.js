@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import click1 from '../../assets/click1.wav';
 import click2 from '../../assets/click2.wav';
+import { setBPM } from '../../actions/actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class Metronome extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            bpm: 100,
             playing: false,
             count: 0,
             beatsPerMeasure: 4
@@ -19,7 +21,7 @@ class Metronome extends Component {
 
     handleBpmChange = (event) => {
         const bpm = event.target.value;
-        this.setState({ bpm });
+        this.props.setBPM(bpm);
     }
 
     playClick = () => {
@@ -41,17 +43,17 @@ class Metronome extends Component {
             clearInterval(this.timer);
             this.setState({ playing: false });
         } else {
-            this.timer = setInterval(this.playClick, (60 / this.state.bpm) * 1000)
+            this.timer = setInterval(this.playClick, (60 / this.props.bpm) * 1000)
             this.setState({
                 count: 0,
                 playing: true
             }, this.playClick)
         }
-        this.click1.play();
     }
 
     render() {
-        const {bpm, playing} = this.state
+        const { bpm } = this.props;
+        const { playing } = this.state;
 
         return (
             <div className="metronome">
@@ -66,11 +68,21 @@ class Metronome extends Component {
                     />
                 </div>
                 <button onClick={this.startStop}>
-                    {this.state.playing ? "Stop" : "Start"}
+                    {playing ? "Stop" : "Start"}
                 </button>
             </div>
         )
     }
-}
+};
 
-export default Metronome;
+let mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        setBPM
+    }, dispatch)
+};
+
+let mapStateToProps = state => ({
+    bpm: state.recordingControls.bpm
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Metronome);
