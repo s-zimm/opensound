@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Sound from 'react-sound';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { togglePlayAll } from '../../actions/actions';
 
 class AudioControls extends Component {
     constructor(props) {
@@ -10,14 +13,7 @@ class AudioControls extends Component {
             playing: false,
             loop: false,
             position: 0,
-            duration: 0,
-            playAll: false
-        }
-    }
-
-    componentDidUpdate = (prevProps) => {
-        if (prevProps !== this.props) {
-            this.setState({ playAll: this.props.playAll })
+            duration: 0
         }
     }
 
@@ -29,7 +25,10 @@ class AudioControls extends Component {
         }
     }
 
-    
+    _handleFinished = () => {
+        this.setState({ playStatus: Sound.status.STOPPED, playing: false });
+        this.props.togglePlayAll();
+    }    
 
     render() {
         return (
@@ -49,7 +48,7 @@ class AudioControls extends Component {
                                     ? Sound.status.PLAYING
                                     : this.state.playStatus}
                     loop={this.state.loop}
-                    onFinishedPlaying={() => this.setState({ playStatus: Sound.status.STOPPED, playing: false })}
+                    onFinishedPlaying={this._handleFinished}
                     onPlaying={({ position }) => this.setState({ position }, () => console.log(this.state.position))}
                     onStop={() => this.setState({ position: 0 })}
                     position={this.state.position}
@@ -60,4 +59,14 @@ class AudioControls extends Component {
     }
 }
 
-export default AudioControls;
+let mapStateToProps = (state) => ({
+    playAll: state.playbackStatus.playAll
+});
+
+let mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        togglePlayAll
+    }, dispatch)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AudioControls);

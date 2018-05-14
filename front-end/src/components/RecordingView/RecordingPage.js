@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import RecordedSound from './RecordedSound';
 import Metronome from '../Metronome/Metronome';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { togglePlayAll } from '../../actions/actions';
 
 class RecordingPage extends Component {
     constructor(props) {
@@ -12,8 +14,7 @@ class RecordingPage extends Component {
             recording: false,
             audioBlob: null,
             recordings: [],
-            countIn: null,
-            playAll: false
+            countIn: null
         }
     }
 
@@ -81,7 +82,6 @@ class RecordingPage extends Component {
                     audioSrc={recording.audioSrc}
                     index={i}
                     handleDelete={this._handleSoundDelete}
-                    playAll={this.state.playAll}
                 />
                 )
         })
@@ -103,7 +103,7 @@ class RecordingPage extends Component {
     }
 
     _handlePlayAll = () => {
-        this.setState({ playAll: true })
+        this.props.togglePlayAll();
     }
 
     render() {
@@ -135,7 +135,14 @@ class RecordingPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    bpm: state.recordingControls.bpm
-})
+    bpm: state.recordingControls.bpm,
+    playAll: state.playbackStatus.playAll
+});
 
-export default connect(mapStateToProps)(RecordingPage);
+let mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        togglePlayAll
+    }, dispatch)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecordingPage);
