@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import RecordedSound from './RecordedSound';
 import Metronome from '../Metronome/Metronome';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { togglePlayAll } from '../../actions/actions';
 
 class RecordingPage extends Component {
     constructor(props) {
@@ -100,6 +102,10 @@ class RecordingPage extends Component {
         
     }
 
+    _handlePlayAll = () => {
+        this.props.togglePlayAll();
+    }
+
     render() {
         return (
             <div className="recording-controls-container">
@@ -109,16 +115,34 @@ class RecordingPage extends Component {
                         ? <button className="record-btn" onClick={this._handleStartRecording}>{this.state.countIn}</button>
                         : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
                 <Metronome />
+                
                 <div className="recording-controls-container">
-                    {this._handleRenderRecordings()}    
-                </div>
+                    <div className="all-recordings">
+                        <div className="play-all">
+                                <div className="play-btn" onClick={this._handlePlayAll}>
+                                    {this.state.playing
+                                        ? <i className="fas fa-pause"></i>
+                                        : <i className="fas fa-play"></i>}
+                                </div>
+                                Play All
+                            </div>
+                            {this._handleRenderRecordings()}    
+                        </div>
+                    </div>
             </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    bpm: state.recordingControls.bpm
-})
+    bpm: state.recordingControls.bpm,
+    playAll: state.playbackStatus.playAll
+});
 
-export default connect(mapStateToProps)(RecordingPage);
+let mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        togglePlayAll
+    }, dispatch)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecordingPage);

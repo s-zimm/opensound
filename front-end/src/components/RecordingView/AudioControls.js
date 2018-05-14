@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Sound from 'react-sound';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { togglePlayAll } from '../../actions/actions';
 
 class AudioControls extends Component {
     constructor(props) {
@@ -22,7 +25,10 @@ class AudioControls extends Component {
         }
     }
 
-    
+    _handleFinished = () => {
+        this.props.togglePlayAll();
+        this.setState({ playStatus: Sound.status.STOPPED, playing: false });
+    }    
 
     render() {
         return (
@@ -38,17 +44,29 @@ class AudioControls extends Component {
                 </button>
                 <Sound 
                     url={this.props.url}
-                    playStatus={this.state.playStatus}
+                    playStatus={this.props.playAll
+                                    ? Sound.status.PLAYING
+                                    : this.state.playStatus}
                     loop={this.state.loop}
-                    onFinishedPlaying={() => this.setState({ playStatus: Sound.status.STOPPED, playing: false })}
-                    onPlaying={({ position }) => this.setState({ position }, () => console.log(this.state.position))}
+                    onFinishedPlaying={this._handleFinished}
+                    onPlaying={({ position }) => this.setState({ position })}
                     onStop={() => this.setState({ position: 0 })}
                     position={this.state.position}
-                    onLoading={({ duration }) => this.setState({ duration }, () => console.log(this.state.duration))}
+                    onLoading={({ duration }) => this.setState({ duration })}
                 />
             </div>
         )
     }
 }
 
-export default AudioControls;
+let mapStateToProps = (state) => ({
+    playAll: state.playbackStatus.playAll
+});
+
+let mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        togglePlayAll
+    }, dispatch)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AudioControls);
