@@ -39,6 +39,7 @@ class RecordedSound extends Component {
                     {/* <audio controls src={this.props.audioSrc}></audio> */}
                     <AudioControls 
                         url={this.props.audioSrc}
+                        playAll={this.props.playAll}
                     />
                     <button onClick={this._saveSound}>Save</button>
                     <button onClick={this._deleteSound}>Delete</button>

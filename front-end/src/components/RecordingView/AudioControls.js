@@ -10,7 +10,14 @@ class AudioControls extends Component {
             playing: false,
             loop: false,
             position: 0,
-            duration: 0
+            duration: 0,
+            playAll: false
+        }
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if (prevProps !== this.props) {
+            this.setState({ playAll: this.props.playAll })
         }
     }
 
@@ -38,7 +45,9 @@ class AudioControls extends Component {
                 </button>
                 <Sound 
                     url={this.props.url}
-                    playStatus={this.state.playStatus}
+                    playStatus={this.props.playAll
+                                    ? Sound.status.PLAYING
+                                    : this.state.playStatus}
                     loop={this.state.loop}
                     onFinishedPlaying={() => this.setState({ playStatus: Sound.status.STOPPED, playing: false })}
                     onPlaying={({ position }) => this.setState({ position }, () => console.log(this.state.position))}

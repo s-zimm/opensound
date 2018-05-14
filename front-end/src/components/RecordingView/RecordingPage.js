@@ -12,7 +12,8 @@ class RecordingPage extends Component {
             recording: false,
             audioBlob: null,
             recordings: [],
-            countIn: null
+            countIn: null,
+            playAll: false
         }
     }
 
@@ -80,6 +81,7 @@ class RecordingPage extends Component {
                     audioSrc={recording.audioSrc}
                     index={i}
                     handleDelete={this._handleSoundDelete}
+                    playAll={this.state.playAll}
                 />
                 )
         })
@@ -100,6 +102,10 @@ class RecordingPage extends Component {
         
     }
 
+    _handlePlayAll = () => {
+        this.setState({ playAll: true })
+    }
+
     render() {
         return (
             <div className="recording-controls-container">
@@ -109,9 +115,20 @@ class RecordingPage extends Component {
                         ? <button className="record-btn" onClick={this._handleStartRecording}>{this.state.countIn}</button>
                         : <button className="record-btn" onClick={this._handleStartRecording}>Record</button>}
                 <Metronome />
+                
                 <div className="recording-controls-container">
-                    {this._handleRenderRecordings()}    
-                </div>
+                    <div className="all-recordings">
+                        <div className="play-all">
+                                <div className="play-btn" onClick={this._handlePlayAll}>
+                                    {this.state.playing
+                                        ? <i className="fas fa-pause"></i>
+                                        : <i className="fas fa-play"></i>}
+                                </div>
+                                Play All
+                            </div>
+                            {this._handleRenderRecordings()}    
+                        </div>
+                    </div>
             </div>
         )
     }
