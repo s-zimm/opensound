@@ -26,8 +26,8 @@ class AudioControls extends Component {
     }
 
     _handleFinished = () => {
-        this.setState({ playStatus: Sound.status.STOPPED, playing: false });
         this.props.togglePlayAll();
+        this.setState({ playStatus: Sound.status.STOPPED, playing: false });
     }    
 
     render() {
@@ -49,10 +49,10 @@ class AudioControls extends Component {
                                     : this.state.playStatus}
                     loop={this.state.loop}
                     onFinishedPlaying={this._handleFinished}
-                    onPlaying={({ position }) => this.setState({ position }, () => console.log(this.state.position))}
+                    onPlaying={({ position }) => this.setState({ position })}
                     onStop={() => this.setState({ position: 0 })}
                     position={this.state.position}
-                    onLoading={({ duration }) => this.setState({ duration }, () => console.log(this.state.duration))}
+                    onLoading={({ duration }) => this.setState({ duration })}
                 />
             </div>
         )
