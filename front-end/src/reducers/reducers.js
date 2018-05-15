@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { SET_BPM, TOGGLE_PLAY_ALL } from "../actions/actions";
+import { SET_BPM, TOGGLE_PLAY_ALL, ADD_RECORDING } from "../actions/actions";
 
 const recordingControls = (state = { bpm: 120 }, action) => {
     switch (action.type) {
@@ -22,7 +22,21 @@ const playbackStatus = (state = { playAll: false }, action) => {
     }
 }
 
+const recordings = (state = [], action) => {
+    switch (action.type) {
+        case ADD_RECORDING:
+            return [...state, action.payload]
+        
+        // case REMOVE_RECORDING:
+        //     return state
+        
+        default:
+            return state
+    }
+}
+
 export default combineReducers({ 
     recordingControls,
-    playbackStatus
+    playbackStatus,
+    recordings
 });

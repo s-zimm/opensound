@@ -9,7 +9,7 @@ class AudioControls extends Component {
         super(props);
 
         this.state = {
-            playStatus: Sound.status.PAUSED,
+            playStatus: Sound.status.STOPPED,
             playing: false,
             loop: false,
             position: 0,
@@ -18,10 +18,10 @@ class AudioControls extends Component {
     }
 
     _handlePlayBtn = () => {
-        if (this.state.playStatus === Sound.status.PAUSED) {
+        if (this.state.playStatus === Sound.status.STOPPED) {
             this.setState({ playing: true, playStatus: Sound.status.PLAYING });
         } else {
-            this.setState({ playing: false, playStatus: Sound.status.PAUSED });
+            this.setState({ playing: false, playStatus: Sound.status.STOPPED });
         }
     }
 

@@ -3,7 +3,7 @@ import RecordedSound from './RecordedSound';
 import Metronome from '../Metronome/Metronome';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { togglePlayAll } from '../../actions/actions';
+import { togglePlayAll, addRecording } from '../../actions/actions';
 
 class RecordingPage extends Component {
     constructor(props) {
@@ -49,15 +49,17 @@ class RecordingPage extends Component {
             let blob = new Blob(chunks, { 'type' : 'audio/mp3; codecs=opus' });
             let audioSrc = window.URL.createObjectURL(blob);
             console.log(blob);
+            let recording = { 
+                soundName: prompt('Name your sound:'),
+                audioBlob: blob,
+                audioSrc
+            }
             this.setState({ recordings: [
                 ...this.state.recordings,
-                    { 
-                        soundName: prompt('Name your sound:'),
-                        audioBlob: blob,
-                        audioSrc
-                    }
+                    recording
                 ]
             });
+            this.props.addRecording(recording)
         }
         mediaRecorder.stop();
         console.log(this.state.mediaRecorder.state)
@@ -141,7 +143,8 @@ const mapStateToProps = state => ({
 
 let mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        togglePlayAll
+        togglePlayAll,
+        addRecording
     }, dispatch)
 };
 
