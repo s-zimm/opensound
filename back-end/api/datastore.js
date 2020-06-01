@@ -74,8 +74,10 @@ const datastore = (table, attributes) => {
 
 let users = datastore('users',['username','email','first_name','last_name']);
 let sounds = datastore('sounds', ['user_id','title','file_path']);
+let tracks = datastore('tracks',['user_id','sound_id','title','file_path']);
 
 module.exports = {
   users,
-  sounds
+  sounds,
+  tracks
 };
